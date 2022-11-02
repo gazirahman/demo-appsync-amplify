@@ -1,4 +1,4 @@
-import { DataStore } from "aws-amplify";
+import { DataStore } from "@aws-amplify/datastore";
 import { useEffect, useState } from "react";
 import { Transaction } from "../models";
 
@@ -33,6 +33,8 @@ export const Transactions = () => {
             label: transaction.label,
             amount: parseFloat(transaction.amount)
         }));
+
+        await fetchTransactions();
     }
 
     return (
@@ -48,6 +50,7 @@ export const Transactions = () => {
             <input placeholder="Amount" value={formState.amount}
                 onChange={event=> setInput('amount', event.target.value)} />
             <button onClick={addTransaction}>Create Transaction</button>
+
             <hr />
             <div>
                 {

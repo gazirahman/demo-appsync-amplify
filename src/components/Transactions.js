@@ -1,3 +1,4 @@
+import { API } from 'aws-amplify';
 import { DataStore } from "@aws-amplify/datastore";
 import { useEffect, useState } from "react";
 import { Transaction } from "../models";
@@ -11,6 +12,7 @@ const initialState = {
 export const Transactions = () => {
     const [formState, setFormState] = useState(initialState)
     const [transactions, setTransactions] = useState([]);
+    const [balance, setBalance] = useState(0);
 
     useEffect(() => {
         const subscription = DataStore.observeQuery(
@@ -19,12 +21,19 @@ export const Transactions = () => {
             const { items, isSynced} = snapshot;
             console.log("Found Items: {}", JSON.stringify(items));
             setTransactions(items);
+            updateBalance();
         });
 
         return ()=> {
             subscription.unsubscribe();
         }
     }, []);
+    
+    const updateBalance = async () => {
+        const result = await API.get('getbalance', '/balance');
+        console.log(JSON.stringify(result));
+        setBalance(result);
+    }
 
     function setInput(key, value) {
         setFormState({...formState, [key]: value});
@@ -45,9 +54,7 @@ export const Transactions = () => {
     return (
         <div>
             <h1>
-                Balance: {
-                    transactions.reduce((total, transaction) => total + transaction.amount, 0)
-                }
+                Balance: {balance}
             </h1>
             <h2>Transactions</h2>
             <input placeholder="Label" value={formState.label}

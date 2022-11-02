@@ -10,6 +10,18 @@
       "StackName": "amplify-demoappsyncamplify01-dev-184947",
       "StackId": "arn:aws:cloudformation:us-east-2:079742931427:stack/amplify-demoappsyncamplify01-dev-184947/7dc8b4c0-5a37-11ed-96ad-0254d66aa776",
       "AmplifyAppId": "dn3f3ak55djxe"
+    },
+    "categories": {
+      "function": {
+        "getBalance": {
+          "deploymentBucketName": "amplify-demoappsyncamplify01-dev-184947-deployment",
+          "s3Key": "amplify-builds/getBalance-456952305131352b4643-build.zip"
+        }
+      },
+      "api": {
+        "demoappsyncamplify01": {},
+        "getbalance": {}
+      }
     }
   }
 }

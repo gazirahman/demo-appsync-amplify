@@ -24,6 +24,12 @@
       },
       "auth": {
         "demoappsyncamplify01": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dn3f3ak55djxe",
+          "type": "manual"
+        }
       }
     }
   }

@@ -12,13 +12,18 @@ export const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetchTransactions()
-    }, []);
+        const subscription = DataStore.observeQuery(
+            Transaction,
+        ).subscribe(snapshot => {
+            const { items, isSynced} = snapshot;
+            console.log("Found Items: {}", JSON.stringify(items));
+            setTransactions(items);
+        });
 
-    async function fetchTransactions() {
-        const models = await DataStore.query(Transaction);
-        setTransactions(models);
-    }
+        return ()=> {
+            subscription.unsubscribe();
+        }
+    }, []);
 
     function setInput(key, value) {
         setFormState({...formState, [key]: value});
@@ -34,7 +39,6 @@ export const Transactions = () => {
             amount: parseFloat(transaction.amount)
         }));
 
-        await fetchTransactions();
     }
 
     return (

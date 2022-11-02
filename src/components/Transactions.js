@@ -31,8 +31,8 @@ export const Transactions = () => {
         setFormState(initialState);
         await DataStore.save(new Transaction({
             label: transaction.label,
-            amount: transaction.amount
-        }));;
+            amount: parseFloat(transaction.amount)
+        }));
     }
 
     return (
@@ -42,6 +42,7 @@ export const Transactions = () => {
                     transactions.reduce((total, transaction) => total + transaction.amount, 0)
                 }
             </h1>
+            <h2>Transactions</h2>
             <input placeholder="Label" value={formState.label}
                 onChange={event=> setInput('label', event.target.value)} />
             <input placeholder="Amount" value={formState.amount}

@@ -1,0 +1,6 @@
+type Transaction @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  label: String!
+  amount: Float!
+}
+ 
